@@ -322,6 +322,8 @@ gulp.task('copytrunk', function() {
             }
             console.log('dir:', srcFile);
 
+            if(srcFile.indexOf('maps') != -1) continue;
+
             if(srcFile.indexOf('static_guojiang_tv') != -1){
                 gulp.src(srcFile, {base: '../'})    
                     .pipe(debug({title: 'static:'}))
