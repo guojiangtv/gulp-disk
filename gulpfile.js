@@ -1,6 +1,7 @@
 //引入插件
 var gulp = require('gulp'),
-    cleanCss = require('gulp-clean-css'),
+/*    cleanCss = require('gulp-clean-css'),*/
+    cleanCss = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     less = require('gulp-less'),
