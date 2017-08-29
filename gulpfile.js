@@ -281,11 +281,11 @@ var file = './file.txt';
 gulp.task('copybeta', function() {
     fs.readFile(file, function(err, obj){
         console.log('err:', err);
-        var obj = obj.toString().split('\n');
+        var obj = obj.toString().replace(/\s{2,}/g, '\n').replace(/(^\s+)|(\s+$)/g, '').split('\n');
 
         for(var i = 0; i< obj.length; i++){
 
-            var srcFile = '/var/www/' + obj[i].replace('\r','');
+            var srcFile = '/var/www/' + obj[i].replace(/\s+/g,'');
             
             if(srcFile.indexOf('.') == -1){
                 srcFile = srcFile + '/**/*.*' ;
@@ -312,11 +312,11 @@ gulp.task('copybeta', function() {
 gulp.task('copytrunk', function() {
     fs.readFile(file, function(err, obj){
         console.log('err:', err);
-        var obj = obj.toString().split('\n');
+        var obj = obj.toString().replace(/\s{2,}/g, '\n').replace(/(^\s+)|(\s+$)/g, '').split('\n');
 
         for(var i = 0; i< obj.length; i++){
 
-            var srcFile = '/var/www/' + obj[i].replace('\r','');
+            var srcFile = '/var/www/' + obj[i].replace(/\s+/g,'');
             
             if(srcFile.indexOf('.') == -1){
                 srcFile = srcFile + '/**/*.*' ;
@@ -326,7 +326,7 @@ gulp.task('copytrunk', function() {
             if(srcFile.indexOf('maps') != -1) continue;
 
             if(srcFile.indexOf('static_guojiang_tv') != -1){
-                gulp.src(srcFile, {base: '../'})    
+                gulp.src(srcFile, {base: '../'})
                     .pipe(debug({title: 'static:'}))
                     .pipe(gulp.dest( fs.realpathSync('../../trunk/static') ));
             }else{
