@@ -1,0 +1,4 @@
+videochat/web/protected/views/room/roomContentV4.php
+static_guojiang_tv/pc/v3/js/room/roomV4.js
+static_guojiang_tv/pc/v3/maps/js/room/roomV4.js.map
+static_guojiang_tv/src/pc/js/room/roomV4.js

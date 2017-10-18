@@ -1,6 +1,10 @@
 # gulp
 虚拟机内gulp
 
+2017-10-18
+1. 使用yarn工具安装包
+2. gulp-rev，gulp-rev-collector版本号增加工具使用自用npm包，安装后不需要手动更改node_modules内代码
+
 2017-04-20 
 增加sourcemap
 
