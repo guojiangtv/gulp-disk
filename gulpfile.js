@@ -1,3 +1,8 @@
+/**
+ * 配置
+ */
+var virtualDrive = 'z';  //虚拟机盘符
+
 //引入插件
 var gulp = require('gulp'),
 /*    cleanCss = require('gulp-clean-css'),*/
@@ -17,51 +22,52 @@ var gulp = require('gulp'),
     debug = require('gulp-debug'),
     sourcemaps = require('gulp-sourcemaps');
 
+
 // 任务处理的文件路径配置
 var src = {
         js: [
-            fs.realpathSync('../src/mobile/js') + '/**/*.js'
+            fs.realpathSync('../static_guojiang_tv/src/mobile/js') + '/**/*.js'
         ],
         css: [
-            fs.realpathSync('../src/mobile/css') + '/**/*.less'
+            fs.realpathSync('../static_guojiang_tv/src/mobile/css') + '/**/*.less'
         ],
         img: [
-            '../src/mobile/img/**'
+            '../static_guojiang_tv/src/mobile/img/**'
         ],
-        base: '../src/mobile/'
+        base: '../static_guojiang_tv/src/mobile/'
     },
     dest = {
         jscss: [
-            fs.realpathSync('../mobile/js') + '/**/*.js',
-            fs.realpathSync('../mobile/css') + '/**/*.css'
+            fs.realpathSync('../static_guojiang_tv/mobile/js') + '/**/*.js',
+            fs.realpathSync('../static_guojiang_tv/mobile/css') + '/**/*.css'
         ]
     },
     pc_src = {
         js: [
-            fs.realpathSync('../src/pc/js') + '/**/*.js'
+            fs.realpathSync('../static_guojiang_tv/src/pc/js') + '/**/*.js'
         ],
         less: [
-            fs.realpathSync('../src/pc/css') + '/**/*.less'
+            fs.realpathSync('../static_guojiang_tv/src/pc/css') + '/**/*.less'
         ],
         css: [
-            fs.realpathSync('../src/pc/css') + '/**/*.css'
+            fs.realpathSync('../static_guojiang_tv/src/pc/css') + '/**/*.css'
         ],
         cssall: [
-            fs.realpathSync('../src/pc/css') + '/**'
+            fs.realpathSync('../static_guojiang_tv/src/pc/css') + '/**'
         ],
         img: [
-            '../src/pc/img/**'
+            '../static_guojiang_tv/src/pc/img/**'
         ],
-        base: '../src/pc/'
+        base: '../static_guojiang_tv/src/pc/'
     },
     pc_dest = {
         jscss: [
-            fs.realpathSync('../pc/v3/js') + '/**/*.js',
-            fs.realpathSync('../pc/v3/css') + '/**/*.css'
+            fs.realpathSync('../static_guojiang_tv/pc/v3/js') + '/**/*.js',
+            fs.realpathSync('../static_guojiang_tv/pc/v3/css') + '/**/*.css'
         ]
     },
-    output = '../mobile',
-    pc_output = '../pc/v3';
+    output = '../static_guojiang_tv/mobile',
+    pc_output = '../static_guojiang_tv/pc/v3';
 
 var isRelease = false;
 
@@ -111,23 +117,23 @@ gulp.task('images', function(){
 
 });
 gulp.task('rev', function() {
-    gulp.src(['./rev/mobile/**/*.json', '../../videochat/web/protected/modules/mobile/views/**/*.php' ]) 
+    gulp.src(['./rev/mobile/**/*.json', virtualDrive+ ':/videochat/web/protected/modules/mobile/views/**/*.php' ]) 
         .pipe( revCollector({
             replaceReved: true
         }) )      
-        .pipe(gulp.dest( fs.realpathSync('../../videochat/web/protected/modules/mobile/views/') ));
+        .pipe(gulp.dest( fs.realpathSync(virtualDrive+ ':/videochat/web/protected/modules/mobile/views/') ));
 
-    gulp.src(['./rev/mobile/img/*.json', '../mobile/css/*' ])  
+    gulp.src(['./rev/mobile/img/*.json', '../static_guojiang_tv/mobile/css/*' ])  
         .pipe( revCollector({
             replaceReved: true
         }) )   
-        .pipe(gulp.dest( fs.realpathSync('../mobile/css/') ));
+        .pipe(gulp.dest( fs.realpathSync('../static_guojiang_tv/mobile/css/') ));
 
-    gulp.src(['./rev/mobile/img/*.json', '../mobile/js/*' ])  
+    gulp.src(['./rev/mobile/img/*.json', '../static_guojiang_tv/mobile/js/*' ])  
         .pipe( revCollector({
             replaceReved: true
         }) )   
-        .pipe(gulp.dest( fs.realpathSync('../mobile/js/') ));     
+        .pipe(gulp.dest( fs.realpathSync('../static_guojiang_tv/mobile/js/') ));     
 });
 
 /* 测试和线上环境 */
@@ -224,23 +230,23 @@ gulp.task('pc_images', function(){
 
 });
 gulp.task('pc_rev', function() {
-    gulp.src(['./rev/pc/**/*.json', '../../videochat/web/protected/views/**/*.php' ]) 
+    gulp.src(['./rev/pc/**/*.json', virtualDrive+ ':/videochat/web/protected/views/**/*.php' ]) 
         .pipe( revCollector({
             replaceReved: true
         }) )      
-        .pipe(gulp.dest( fs.realpathSync('../../videochat/web/protected/views/') ));
+        .pipe(gulp.dest( fs.realpathSync(virtualDrive+ ':/videochat/web/protected/views/') ));
 
-    gulp.src(['./rev/pc/img/*.json', '../pc/v3/css/*' ])  
+    gulp.src(['./rev/pc/img/*.json', '../static_guojiang_tv/pc/v3/css/*' ])  
         .pipe( revCollector({
             replaceReved: true
         }) )   
-        .pipe(gulp.dest( fs.realpathSync('../pc/v3/css/') ));
+        .pipe(gulp.dest( fs.realpathSync('../static_guojiang_tv/pc/v3/css/') ));
 
-    gulp.src(['./rev/pc/img/*.json', '../pc/v3/js/*' ])  
+    gulp.src(['./rev/pc/img/*.json', '../static_guojiang_tv/pc/v3/js/*' ])  
         .pipe( revCollector({
             replaceReved: true
         }) )   
-        .pipe(gulp.dest( fs.realpathSync('../pc/v3/js/') ));     
+        .pipe(gulp.dest( fs.realpathSync('../static_guojiang_tv/pc/v3/js/') ));     
 });
 
 
@@ -285,7 +291,7 @@ gulp.task('copybeta', function() {
 
         for(var i = 0; i< obj.length; i++){
 
-            var srcFile = '/var/www/' + obj[i].replace(/\s+/g,'');
+            var srcFile = obj[i].replace(/\s+/g,'');
             
             if(srcFile.indexOf('.') == -1){
                 srcFile = srcFile + '/**/*.*' ;
@@ -293,13 +299,16 @@ gulp.task('copybeta', function() {
             console.log('dir:', srcFile);
 
             if(srcFile.indexOf('static_guojiang_tv') != -1){
-                gulp.src(srcFile, {base: '../'})    
+                srcFile = '../' + srcFile;
+                //base: srcFile 去掉base的路径，对接上dest的路径
+                gulp.src(srcFile, {base: '../static_guojiang_tv'})    
                     .pipe(debug({title: 'static:'}))
-                    .pipe(gulp.dest( fs.realpathSync('../../beta/static') ));
+                    .pipe(gulp.dest( fs.realpathSync('../beta/static') ));
             }else{
-                gulp.src(srcFile, {base: '../../'})    
+                srcFile = virtualDrive+ ':/' + srcFile;
+                gulp.src(srcFile, {base: virtualDrive+ ':/'})    
                     .pipe(debug({title: 'videochat:'}))
-                    .pipe(gulp.dest( fs.realpathSync('../../beta') ));
+                    .pipe(gulp.dest( fs.realpathSync('../beta') ));
             }
             
         }
@@ -316,7 +325,7 @@ gulp.task('copytrunk', function() {
 
         for(var i = 0; i< obj.length; i++){
 
-            var srcFile = '/var/www/' + obj[i].replace(/\s+/g,'');
+            var srcFile = obj[i].replace(/\s+/g,'');
             
             if(srcFile.indexOf('.') == -1){
                 srcFile = srcFile + '/**/*.*' ;
@@ -326,13 +335,15 @@ gulp.task('copytrunk', function() {
             if(srcFile.indexOf('maps') != -1) continue;
 
             if(srcFile.indexOf('static_guojiang_tv') != -1){
-                gulp.src(srcFile, {base: '../'})
+                srcFile = '../' + srcFile;
+                gulp.src(srcFile, {base: '../static_guojiang_tv'})
                     .pipe(debug({title: 'static:'}))
-                    .pipe(gulp.dest( fs.realpathSync('../../trunk/static') ));
+                    .pipe(gulp.dest( fs.realpathSync('../trunk/static') ));
             }else{
-                gulp.src(srcFile, {base: '../../'})    
+                srcFile = virtualDrive+ ':/' + srcFile;
+                gulp.src(srcFile, {base: virtualDrive+ ':/'})    
                     .pipe(debug({title: 'videochat:'}))
-                    .pipe(gulp.dest( fs.realpathSync('../../trunk') ));
+                    .pipe(gulp.dest( fs.realpathSync('../trunk') ));
             }
             
         }
@@ -346,18 +357,18 @@ gulp.task('copytrunk', function() {
 /****************************PC old less2css******************************/
 gulp.task('pc_old', function(){
 
-    return gulp.src('../pc/css/**/*.less')
+    return gulp.src('../static_guojiang_tv/pc/css/**/*.less')
         .pipe(less()).on('error', errorHandler)
         .pipe(plumber())
         .pipe( gulpif(isOldRelease, cleanCss({compatibility: 'ie7'})) )
         .pipe(debug({title: 'css:'}))
-        .pipe(gulp.dest('../pc/css'));
+        .pipe(gulp.dest('../static_guojiang_tv/pc/css'));
 });
 gulp.task('pc_old_dev', function(){
     isOldRelease = false;
     gulp.start('pc_old');
 
-    var less_watcher = gulp.watch('../pc/css/**/*.less', ['pc_old']);
+    var less_watcher = gulp.watch('../static_guojiang_tv/pc/css/**/*.less', ['pc_old']);
     less_watcher.on('change', function(event) {
       console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     })
