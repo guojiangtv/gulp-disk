@@ -22,6 +22,8 @@ var gulp = require('gulp'),
     debug = require('gulp-debug'),
     sourcemaps = require('gulp-sourcemaps');
 
+const babel = require('gulp-babel');
+const removeUseStrict = require("./lib/gulp-remove-babel-use-strict.js");
 
 // 任务处理的文件路径配置
 var src = {
@@ -182,6 +184,8 @@ gulp.task('pc_clean', function(){
 gulp.task('pc_scripts', function(){
     return gulp.src(pc_src.js, {base: pc_src.base })
         .pipe(gulpif(!isRelease, changed(pc_output) ) )
+        .pipe(babel()).on('error', errorHandler)
+        .pipe(removeUseStrict())
         .pipe( gulpif(isRelease, sourcemaps.init() ) )
         .pipe( gulpif(isRelease, uglify()) )
         .on('error', errorHandler)
