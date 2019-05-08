@@ -1,11 +1,14 @@
 # gulp-disk
 老的php项目，用于在本地磁盘（非虚拟机中）编译的脚手架
 
-2017-10-18
+## 2019-05-08
+gulp增加对es6、7、8的编译支持
+
+## 2017-10-18
 1. 使用yarn工具安装包
 2. gulp-rev，gulp-rev-collector版本号增加工具使用自有npm包，安装后不需要手动更改node_modules内代码
 
-2017-04-20 
+## 2017-04-20 
 增加sourcemap
 
 	var sourcemaps = require('gulp-sourcemaps');
