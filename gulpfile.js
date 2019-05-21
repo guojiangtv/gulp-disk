@@ -24,6 +24,7 @@ var gulp = require('gulp'),
 
 const babel = require('gulp-babel');
 const removeUseStrict = require("./lib/gulp-remove-babel-use-strict.js");
+const pcBabelIgnoreFiles = ['plupload', 'RongIMLib']
 
 // 任务处理的文件路径配置
 var src = {
@@ -181,10 +182,17 @@ gulp.task('pc_clean', function(){
         .pipe(clean({force: true}));
 })
 
+function babelFilter(file){
+    var isFilterFile =  pcBabelIgnoreFiles.some(function(val){
+        return file.history[0].indexOf(val) != -1
+    })
+    return !isFilterFile
+}
+
 gulp.task('pc_scripts', function(){
     return gulp.src(pc_src.js, {base: pc_src.base })
         .pipe(gulpif(!isRelease, changed(pc_output) ) )
-        .pipe(babel()).on('error', errorHandler)
+        .pipe(gulpif(babelFilter, babel()) ).on('error', errorHandler)
         .pipe(removeUseStrict())
         .pipe( gulpif(isRelease, sourcemaps.init() ) )
         .pipe( gulpif(isRelease, uglify()) )
